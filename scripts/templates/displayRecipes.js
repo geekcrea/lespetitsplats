@@ -1,5 +1,5 @@
 
-import createElement from '../utils/createElement';
+import createElement from '../utils/createElement.js';
 
 const recipesSection = document.querySelector('#recipesSection');
 const template = document.querySelector('#article');
