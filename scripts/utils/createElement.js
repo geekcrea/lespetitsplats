@@ -2,7 +2,7 @@ export default (element, className, textContent, id) => {
     const elementCreated = document.createElement(element);
 
     if (className) {
-        elementCreated.setAttribute('class', className);
+        elementCreated.setAttribute('class',  className);
     }
 
     if (textContent) {

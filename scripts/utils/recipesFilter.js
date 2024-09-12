@@ -33,7 +33,6 @@ export default (optionList, array, inputValue) => {
     for (const option of optionList) {
         recipesFiltered = [];
         inTheArray = [];
-        // eslint-disable-next-line no-loop-func
         arrayFiltered.forEach((element) => {
             const { appliance, ustensils, ingredients } = element;
 

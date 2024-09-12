@@ -13,4 +13,4 @@ const displayCloseIcon = (input, icon) => {
     }
 };
 
-export { displayCloseIcon, deleteWithIcon };
+export { displayCloseIcon,  deleteWithIcon };

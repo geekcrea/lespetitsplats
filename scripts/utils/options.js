@@ -14,7 +14,7 @@ const optionsFilter = (array) => {
             }
         });
 
-        recipe.ingredients.forEach((ingredient) => {
+        recipe.ingredients.forEach((ingredient) =>  {
             const ingredientName = ingredient.ingredient;
             if (!ingredients.includes(ingredientName)) {
                 ingredients.push(ingredientName);
