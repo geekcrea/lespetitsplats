@@ -1,5 +1,9 @@
 import recipesList from '../../data/recipes.js';
 import displayRecipes from '../templates/displayRecipes.js';
+import filterRecipes from '../utils/recipesFilter.js';
+import { deleteWithIcon, displayCloseIcon } from '../utils/delete.js';
+import { optionsFilter, filterBySearchOption } from '../utils/options.js';
+import { displayOptions, forEachList, closeDivOptions, displayOptionSelected } from '../templates/displayOptions.js';
 
 // DOM Elements //
 const body = document.querySelector('body');
@@ -60,7 +64,7 @@ function handleOptionClick(event) {
     const availableOptions = getAvailableOptions(nameOption);
     const divOptions = document.querySelector(`#div-option-${nameOption}`);
     const iconChevron = document.querySelector(`#icon-${nameOption}`);
-
+    
     toggleChevronRotation(iconChevron);
 
     if (divOptions) {
