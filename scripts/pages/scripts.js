@@ -145,24 +145,27 @@ function setupOptionSearchInput() {
 
 function elementLiClick(ulElement) {
     const allElementsLi = ulElement.querySelectorAll('li');
+    console.log('testetestg')
     allElementsLi.forEach((item) => {
         item.addEventListener('click', () => {
             const { textContent } = item;
             let spanOptionSelected;
 
-            if (optionSelectedList.includes(textContent.toUpperCase())) {
+            const textContentUpperCase = textContent.toUpperCase()
+
+            if (optionSelectedList.includes(textContentUpperCase)) {
                 const id = `span-option-${textContent.toLowerCase().split(' ').join('-').split('\'').join('-')}`;
                 spanOptionSelected = document.querySelector(`#${id}`);
                 closeSpanOption(spanOptionSelected);
             } else {
-                optionSelectedList.push(textContent.toUpperCase());
+                optionSelectedList.push(textContentUpperCase);
                 localStorage.setItem("options", JSON.stringify(optionSelectedList));
                 spanOptionSelected = displayOptionSelected(textContent);
             }
 
             const iconCloseSpan = spanOptionSelected?.querySelector('i');
 
-            updateRecipeList(valueInputUpdated);
+            updateRecipeList(textContentUpperCase);
             closeDivOptions();
             recipesNumberToDisplay = initialRecipesToDisplay;
 
@@ -172,11 +175,13 @@ function elementLiClick(ulElement) {
 }
 
 function closeSpanOption(spanOption) {
-    const indexOption = optionSelectedList.indexOf(spanOption.textContent.toUpperCase());
+    const nameToFilter = spanOption.textContent.toUpperCase()
+
+    const indexOption = optionSelectedList.indexOf(nameToFilter);
     optionSelectedList.splice(indexOption, 1);
     localStorage.setItem("options", JSON.stringify(optionSelectedList));
 
-    updateRecipeList(valueInputUpdated);
+    updateRecipeList(nameToFilter);
     recipesNumberToDisplay = initialRecipesToDisplay;
 
     spanOption.remove();

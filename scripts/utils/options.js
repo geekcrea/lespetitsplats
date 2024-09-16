@@ -1,20 +1,21 @@
 const optionsFilter = (array) => {
     const appliance = [];
-    const ustensils = [];
+    let ustensils = [];
     const ingredients = [];
 
     array.forEach((recipe) => {
+        // Ajouter l'appareil s'il n'existe pas déjà dans la liste
         if (!appliance.includes(recipe.appliance)) {
             appliance.push(recipe.appliance);
         }
 
-        recipe.ustensils.forEach((ustensil) => {
-            if (!ustensils.includes(ustensil)) {
-                ustensils.push(ustensil);
-            }
-        });
+        // Utiliser concat pour ajouter les ustensiles et filtrer les doublons
+        ustensils = ustensils.concat(
+            recipe.ustensils.filter(ustensil => !ustensils.includes(ustensil))
+        );
 
-        recipe.ingredients.forEach((ingredient) =>  {
+        // Utiliser forEach pour parcourir les ingrédients
+        recipe.ingredients.forEach((ingredient) => {
             const ingredientName = ingredient.ingredient;
             if (!ingredients.includes(ingredientName)) {
                 ingredients.push(ingredientName);
