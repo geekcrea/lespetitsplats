@@ -1,3 +1,57 @@
+/**
+const filterOptions = {
+    text: '',
+    ingredients: [],
+    ustensils: [],
+    appareils: [],
+}
+
+function eventClickAddIngredient(event) {
+    const value = event.target
+    filterOptions.ingredients.push(value)
+    filtreRecipes(recipes)
+}
+
+function eventClickRemoveIngredient(event) {
+    const value = event.target
+    filterOptions.ingredients.remove(value)
+    filtreRecipes(recipes)
+}
+
+function eventClickAppareil(event) {
+    const value = event.target
+    filterOptions.appareils.push(value)
+    filtreRecipes(recipes)
+}
+
+
+function filtreRecipes(array) {
+    const recipesFiltering = array.filter((element) => {
+        let isCandidate = true
+        if (filterOptions.text.length > 0) {
+            if (!element.name.toUpperCase().includes(filterOptions.text)) {
+                isCandidate = false;
+            }
+
+            if (element.description.toUpperCase().includes(filterOptions.text)) {
+                isCandidate = false;
+            }
+        }
+        
+        filterOptions.ingredients.forEach((ingredient) => {
+            if (!element.ingredients.includes(ingredient)) {
+                isCandidate = false;
+            }
+        })
+
+
+        return isCandidate
+
+    });
+    return recipesFiltering;
+}
+**/
+
 const filterInput = (inputValue, array) => {
     if (inputValue === '') {
         return array;
