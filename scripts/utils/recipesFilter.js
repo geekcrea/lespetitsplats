@@ -1,82 +1,33 @@
-/**
-const filterOptions = {
-    text: '',
-    ingredients: [],
-    ustensils: [],
-    appareils: [],
-}
-
-function eventClickAddIngredient(event) {
-    const value = event.target
-    filterOptions.ingredients.push(value)
-    filtreRecipes(recipes)
-}
-
-function eventClickRemoveIngredient(event) {
-    const value = event.target
-    filterOptions.ingredients.remove(value)
-    filtreRecipes(recipes)
-}
-
-function eventClickAppareil(event) {
-    const value = event.target
-    filterOptions.appareils.push(value)
-    filtreRecipes(recipes)
-}
-
-
-function filtreRecipes(array) {
-    const recipesFiltering = array.filter((element) => {
-        let isCandidate = true
-        if (filterOptions.text.length > 0) {
-            if (!element.name.toUpperCase().includes(filterOptions.text)) {
-                isCandidate = false;
-            }
-
-            if (element.description.toUpperCase().includes(filterOptions.text)) {
-                isCandidate = false;
-            }
-        }
-        
-        filterOptions.ingredients.forEach((ingredient) => {
-            if (!element.ingredients.includes(ingredient)) {
-                isCandidate = false;
-            }
-        })
-
-
-        return isCandidate
-
-    });
-    return recipesFiltering;
-}
-**/
-
 const filterInput = (inputValue, array) => {
     if (inputValue === '') {
         return array;
     }
 
+    // Filtrage par texte (nom, description ou ingrédients)
     const recipesFiltering = array.filter((element) => {
-        if (element.name.toUpperCase().includes(inputValue)) {
+        const searchText = inputValue.toUpperCase();
+        if (element.name.toUpperCase().includes(searchText)) {
             return true;
         }
 
-        if (element.description.toUpperCase().includes(inputValue)) {
+        if (element.description.toUpperCase().includes(searchText)) {
             return true;
         }
 
         return element.ingredients.some((ingredient) => {
             const ingredientName = ingredient.ingredient.toUpperCase();
-            return ingredientName.includes(inputValue);
+            return ingredientName.includes(searchText);
         });
     });
+
     return recipesFiltering;
 };
 
 export default (optionList, array, inputValue) => {
+    // Filtrer d'abord par texte
     let arrayFiltered = filterInput(inputValue, array);
 
+    // Si aucune option de filtrage n'est sélectionnée, retourner les résultats du texte
     if (optionList.length === 0) {
         return arrayFiltered;
     }
@@ -87,22 +38,26 @@ export default (optionList, array, inputValue) => {
     for (const option of optionList) {
         recipesFiltered = [];
         inTheArray = [];
+
         arrayFiltered.forEach((element) => {
             const { appliance, ustensils, ingredients } = element;
 
+            // Filtrage par appliance
             if (option.includes(appliance.toUpperCase())) {
                 if (!inTheArray.includes(element.name)) {
                     recipesFiltered.push(element);
                     inTheArray.push(element.name);
                 }
-            } else if (
-                ustensils.some((ustensil) => option.includes(ustensil.toUpperCase()))
-            ) {
+            }
+            // Filtrage par ustensiles
+            else if (ustensils.some((ustensil) => option.includes(ustensil.toUpperCase()))) {
                 if (!inTheArray.includes(element.name)) {
                     recipesFiltered.push(element);
                     inTheArray.push(element.name);
                 }
-            } else {
+            }
+            // Filtrage par ingrédients
+            else {
                 ingredients.forEach((ingredient) => {
                     const ingredientName = ingredient.ingredient.toUpperCase();
 
@@ -114,9 +69,11 @@ export default (optionList, array, inputValue) => {
                     }
                 });
             }
-            arrayFiltered = [...recipesFiltered];
-        }); 
-        
+        });
+
+        // Réinitialiser l'arrayFiltered avec les recettes filtrées jusqu'à présent
+        arrayFiltered = [...recipesFiltered];
     }
+
     return recipesFiltered;
 };
