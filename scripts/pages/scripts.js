@@ -159,7 +159,6 @@ function elementLiClick(ulElement) {
                 closeSpanOption(spanOptionSelected);
             } else {
                 optionSelectedList.push(textContentUpperCase);
-                localStorage.setItem("options", JSON.stringify(optionSelectedList));
                 spanOptionSelected = displayOptionSelected(textContent);
             }
 
@@ -179,8 +178,6 @@ function closeSpanOption(spanOption) {
 
     const indexOption = optionSelectedList.indexOf(nameToFilter);
     optionSelectedList.splice(indexOption, 1);
-    localStorage.setItem("options", JSON.stringify(optionSelectedList));
-
     updateRecipeList(nameToFilter);
     recipesNumberToDisplay = initialRecipesToDisplay;
 
