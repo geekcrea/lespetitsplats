@@ -93,13 +93,16 @@ function handleCloseIconClick() {
 }
 
 function updateRecipeList(valueInputUpdated) {
+    console.log('updateRecipeList ???')
     updatedList = filterRecipes(optionSelectedList, recipesList, valueInputUpdated);
+    console.log('updatedList : ', updatedList)
     displayRecipes(updatedList, valueInputUpdated, recipesNumberToDisplay);
     [appliances, ustensils, ingredients] = optionsFilter(updatedList);
 }
 
 function initializeOptions() {
     optionSelectedList.forEach((element) => {
+        console.log('initializeOptions')
         const spanOption = displayOptionSelected(element);
         const iconCloseOption = spanOption.querySelector('i');
         iconCloseOption.addEventListener('click', () => closeSpanOption(spanOption));
@@ -145,8 +148,7 @@ function setupOptionSearchInput() {
 
 function elementLiClick(ulElement) {
     const allElementsLi = ulElement.querySelectorAll('li');
-    console.log('testetestg')
-    allElementsLi.forEach((item) => {
+      allElementsLi.forEach((item) => {
         item.addEventListener('click', () => {
             const { textContent } = item;
             let spanOptionSelected;
@@ -174,11 +176,20 @@ function elementLiClick(ulElement) {
 }
 
 function closeSpanOption(spanOption) {
-    const nameToFilter = spanOption.textContent.toUpperCase()
-
-    const indexOption = optionSelectedList.indexOf(nameToFilter);
+    
+    console.log('lolol');
+    
+    const nameToDeleteFromFilter = spanOption.textContent.toUpperCase()
+    
+    console.log(nameToDeleteFromFilter);
+    
+    const indexOption = optionSelectedList.indexOf(nameToDeleteFromFilter);
     optionSelectedList.splice(indexOption, 1);
-    updateRecipeList(nameToFilter);
+    
+    // Récuprer la valeur de l'input
+    const inputValue = searchBar.value.trim().toUpperCase(); 
+
+    updateRecipeList(inputValue);
     recipesNumberToDisplay = initialRecipesToDisplay;
 
     spanOption.remove();

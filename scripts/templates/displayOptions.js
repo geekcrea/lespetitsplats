@@ -1,6 +1,7 @@
 import createElement from '../utils/createElement.js';
 
 const displayOptionSelected = (value) => {
+    console.log('displayOptionSelected 2')
     const divOptionsSelected = document.querySelector('#divOptionsSelected');
 
     const id = `span-option-${value.toLowerCase().split(' ').join('-').split('\'').join('-')}`
