@@ -1,49 +1,24 @@
-const filterInputWithFor = (inputValue, array) => {
+const filterInputFunctional = (inputValue, array) => {
     if (inputValue === '') {
         return array;
     }
 
-    const recipesFiltering = [];
     const searchText = inputValue.toUpperCase();
 
-    for (let i = 0; i < array.length; i++) {
-        const element = array[i];
-        let matchFound = false;
-
-        // Filtrage par nom
-        if (element.name.toUpperCase().includes(searchText)) {
-            matchFound = true;
-        }
-
-        // Filtrage par description
-        if (element.description.toUpperCase().includes(searchText)) {
-            matchFound = true;
-        }
-
-        // Filtrage par ingrédients
-        for (let j = 0; j < element.ingredients.length; j++) {
-            const ingredientName = element.ingredients[j].ingredient.toUpperCase();
-            if (ingredientName.includes(searchText)) {
-                matchFound = true;
-                break;
-            }
-        }
-
-        if (matchFound) {
-            recipesFiltering.push(element);
-        }
-    }
-
-    return recipesFiltering;
+    return array.filter(element =>
+        element.name.toUpperCase().includes(searchText) ||
+        element.description.toUpperCase().includes(searchText) ||
+        element.ingredients.some(ingredient => 
+            ingredient.ingredient.toUpperCase().includes(searchText)
+        )
+    );
 };
 
 export default (optionList, array, inputValue) => {
-    console.log(array);
-
+   
     // Filtrer d'abord par texte
-    let recipesFilteredCurrent = filterInputWithFor(inputValue, array);
-    console.log(recipesFilteredCurrent);
-
+    let recipesFilteredCurrent = filterInputFunctional(inputValue, array);
+ 
     if (optionList.length === 0) {
         return recipesFilteredCurrent;
     }
@@ -51,41 +26,31 @@ export default (optionList, array, inputValue) => {
     let recipesFiltered = [];
     let alreadyInTheArray = [];
 
-    for (let i = 0; i < optionList.length; i++) {
-        const option = optionList[i].toUpperCase();
+    optionList.forEach(option => {
+        const optionUpper = option.toUpperCase();
 
-        for (let j = 0; j < recipesFilteredCurrent.length; j++) {
-            const element = recipesFilteredCurrent[j];
+        recipesFilteredCurrent.forEach(element => {
             const { appliance, ustensils, ingredients } = element;
 
             // Filtrage par appliance
-            if (option === appliance.toUpperCase() && !alreadyInTheArray.includes(element.name)) {
+            if (appliance.toUpperCase() === optionUpper && !alreadyInTheArray.includes(element.name)) {
                 recipesFiltered.push(element);
                 alreadyInTheArray.push(element.name);
-                continue;
             }
-
             // Filtrage par ustensiles
-            for (let k = 0; k < ustensils.length; k++) {
-                if (option === ustensils[k].toUpperCase() && !alreadyInTheArray.includes(element.name)) {
-                    recipesFiltered.push(element);
-                    alreadyInTheArray.push(element.name);
-                    break;
-                }
+            else if (ustensils.some(ustensil => ustensil.toUpperCase() === optionUpper) && !alreadyInTheArray.includes(element.name)) {
+                recipesFiltered.push(element);
+                alreadyInTheArray.push(element.name);
             }
-
             // Filtrage par ingrédients
-            for (let l = 0; l < ingredients.length; l++) {
-                if (option === ingredients[l].ingredient.toUpperCase() && !alreadyInTheArray.includes(element.name)) {
-                    recipesFiltered.push(element);
-                    alreadyInTheArray.push(element.name);
-                    break;
-                }
+            else if (ingredients.some(ingredient => ingredient.ingredient.toUpperCase() === optionUpper) && !alreadyInTheArray.includes(element.name)) {
+                recipesFiltered.push(element);
+                alreadyInTheArray.push(element.name);
             }
-        }
+        });
 
         recipesFilteredCurrent = recipesFiltered;
-    }
+    });
 
     return recipesFiltered;
 };
