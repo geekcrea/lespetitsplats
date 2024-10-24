@@ -7,7 +7,7 @@ Ce document présente une comparaison détaillée entre deux implémentations d'
 
 Les deux versions sont fonctionnellement équivalentes mais diffèrent dans leur style d'implémentation : l'une utilise des boucles impératives (for), tandis que l'autre adopte une approche fonctionnelle en utilisant des méthodes comme filter, some, forEach, et includes.
 
-Version 1 : Utilisation des Boucles for
+Option 1 : Utilisation des Boucles for
 Description
 Cette version repose principalement sur des boucles for pour effectuer les opérations de filtrage. Elle évite l'utilisation des méthodes fonctionnelles comme filter et some, sauf pour includes, qui est nécessaire pour effectuer des recherches de sous-chaînes dans des chaînes de caractères.
 
@@ -21,7 +21,7 @@ Performances : Dans certains cas, les boucles for imbriquées peuvent affecter l
 Choix
 Ce choix est particulièrement adapté si vous travaillez dans un environnement où vous avez besoin d'un contrôle total sur chaque étape du filtrage ou si vous souhaitez conserver la compatibilité avec des versions plus anciennes de JavaScript.
 
-Version 2 : Utilisation des Méthodes Fonctionnelles
+Option 2 : Utilisation des Méthodes Fonctionnelles
 Description
 Cette version utilise une approche fonctionnelle pour implémenter le même algorithme. Elle repose sur des méthodes telles que filter, some, forEach, et includes pour parcourir et filtrer les données. Il n'y a aucune boucle for dans cette implémentation.
 
