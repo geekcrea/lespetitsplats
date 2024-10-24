@@ -1,6 +1,8 @@
 # lespeitsplats
 OC Projet 7 "Les Petits Plats"
 
+link: https://geekcrea.github.io/lespetitsplats/
+
 Fiche d'Investigation : Comparaison des Deux Algorithmes de Filtrage
 Introduction
 Ce document présente une comparaison détaillée entre deux implémentations d'un algorithme de filtrage utilisé pour rechercher des recettes selon différents critères (nom, description, ingrédients, appareils, et ustensiles). L'objectif est de maintenir la même logique de filtrage tout en explorant deux approches de programmation distinctes.
